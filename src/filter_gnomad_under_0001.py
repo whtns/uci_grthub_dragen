@@ -2,7 +2,13 @@
 
 import gzip
 from pathlib import Path
-json_path = Path("RSA_RP82_S7.json.gz")
+import argparse
+
+parser = argparse.ArgumentParser(description="Filter variants from Nirvana JSON output based on gnomAD allele frequency.")
+parser.add_argument("json_path", type=str, help="Path to the Nirvana JSON output file (.json.gz)")
+args = parser.parse_args()
+
+json_path = Path(args.json_path)
 
 # Read Nirvana JSON output by lines
 
@@ -41,9 +47,9 @@ with gzip.open(json_path, 'rt') as f:
                 genes.append(trim_line.rstrip(','))
                 gene_count += 1
 
-print ('header object:', header)
-print ('number of positions:', position_count)
-print ('number of genes:', gene_count)
+print('header object:', header)
+print('number of positions:', position_count)
+print('number of genes:', gene_count)
 
 # Retrieve variants under a gnomAD allele frequency threshold
 
@@ -80,7 +86,7 @@ for gene in genes:
             omim_gene_name = omim_dict['geneName']
     gene_data['OMIM_gene_name'].append(omim_gene_name)
 
-gene_df=pd.DataFrame(data=gene_data)
+gene_df = pd.DataFrame(data=gene_data)
 gene_df
 
 # Retrieve variants under a gnomAD allele frequency threshold
