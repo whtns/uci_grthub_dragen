@@ -101,7 +101,13 @@ run_one() {
         --output-directory "$outdir" \
         --output-file-prefix "$prefix" \
 	--remove-duplicates true \
-        --vc-hard-filter "$VC_FILTER")
+        --vc-hard-filter "$VC_FILTER"
+        --read-trimmers adapter,quality \
+	--trim-adapter-read1 /staging/human/Trimmomatic-0.39/adapters/TruSeq3-PE-2.fa \
+	--trim-adapter-read2 /staging/human/Trimmomatic-0.39/adapters/TruSeq3-PE-2.fa \
+	--trim-min-quality 15 \
+	--min-read-length 20 \
+	--force)
 
     if [ "$DRY_RUN" = true ] || [ "$CREATE_ONLY" = true ]; then
         printf "DRY: %s\n" "${cmd[*]}"
