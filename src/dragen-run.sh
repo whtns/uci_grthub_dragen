@@ -22,7 +22,7 @@ Options:
   -h, --help              Show this help
 
 Examples:
-  $(basename "$0") --reference /path/ref.fa --input-dir /data/fastq --sample-file samples.csv --output-base /staging/results
+  $(basename "$0") --reference /path/ref.fa --input-dir /data/fastq --sample-file samples.csv --output-base results
 
 Sample file format:
   CSV with either 3 columns: sample,R1,R2  (R1/R2 can be basenames or full paths)
