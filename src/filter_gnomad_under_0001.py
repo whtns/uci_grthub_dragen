@@ -119,7 +119,7 @@ df_unnested = pd.json_normalize(df_exploded['transcripts']).set_index(df_explode
 # Handle .json.gz explicitly to avoid .json.csv suffix (e.g., sample.json.gz -> sample.csv)
 input_name = json_path.name
 if input_name.endswith('.json.gz'):
-    output_name = input_name[:-8] + '.csv'  # Strip .json.gz, append .csv
+    output_name = input_name.removesuffix('.json.gz') + '.csv'
 else:
     output_name = json_path.with_suffix('.csv').name
 output_path = json_path.with_name(output_name)
