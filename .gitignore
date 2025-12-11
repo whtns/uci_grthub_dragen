@@ -2,3 +2,5 @@ data/
 results/
 results_old/
 results_second_run/
+__pycache__/
+*.pyc
