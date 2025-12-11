@@ -115,4 +115,14 @@ freq_df2 = pd.DataFrame(data=freq_data)
 df_exploded = freq_df2.explode('transcripts')
 df_unnested = pd.json_normalize(df_exploded['transcripts']).set_index(df_exploded['variant_id']).reset_index()
 
-df_unnested.to_csv("variants_under_gnomad_0001.csv")
+# Derive output CSV path from input JSON path
+# Handle common patterns: .json.gz -> .csv, .json -> .csv, .gz -> .csv
+# Strip extensions sequentially to avoid issues like file.json.gz becoming file.json.csv
+output_path = json_path
+if output_path.suffix == '.gz':
+    output_path = output_path.with_suffix('')  # Remove .gz
+if output_path.suffix == '.json':
+    output_path = output_path.with_suffix('')  # Remove .json
+output_path = output_path.with_suffix('.csv')  # Add .csv
+
+df_unnested.to_csv(output_path)
